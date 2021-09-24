@@ -1,4 +1,4 @@
-package std::hyperion;
+package hyperion::std;
 
 macro min(a, b) a < b ? a : b
 macro max(a, b) a > b ? a : b

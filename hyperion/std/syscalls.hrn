@@ -1,4 +1,4 @@
-package std::hyperion;
+package hyperion::std;
 
 compiler_options(system, linux64) {
     macro syscall()                                                        { asm -> syscall;                               }
