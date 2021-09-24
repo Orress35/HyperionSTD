@@ -1,0 +1,81 @@
+compiler_options(system, linux64) {
+    macro syscall() {
+        asm -> syscall;
+    }
+
+    macro syscall(a) {
+        asm {
+            mov rax, a;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b, c) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            mov rsi, c;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b, c, d) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            mov rsi, c;
+            mov rdx, d;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b, c, d, e) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            mov rsi, c;
+            mov rdx, d;
+            mov r10, e;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b, c, d, e, f) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            mov rsi, c;
+            mov rdx, d;
+            mov r10, e;
+            mov r8,  f;
+            syscall;
+        }
+    }
+
+    macro syscall(a, b, c, d, e, f, g) {
+        asm {
+            mov rax, a;
+            mov rdi, b;
+            mov rsi, c;
+            mov rdx, d;
+            mov r10, e;
+            mov r8,  f;
+            mov r9,  g;
+            syscall;
+        }
+    }
+}
+
+macro exit(code) {
+    compiler_options(system, linux64) {
+        syscall(60, 0);
+    }
+}
