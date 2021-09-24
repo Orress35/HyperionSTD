@@ -1,77 +1,12 @@
 compiler_options(system, linux64) {
-    macro syscall() {
-        asm -> syscall;
-    }
-
-    macro syscall(a) {
-        asm {
-            mov rax, a;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b, c) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            mov rsi, c;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b, c, d) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            mov rsi, c;
-            mov rdx, d;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b, c, d, e) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            mov rsi, c;
-            mov rdx, d;
-            mov r10, e;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b, c, d, e, f) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            mov rsi, c;
-            mov rdx, d;
-            mov r10, e;
-            mov r8,  f;
-            syscall;
-        }
-    }
-
-    macro syscall(a, b, c, d, e, f, g) {
-        asm {
-            mov rax, a;
-            mov rdi, b;
-            mov rsi, c;
-            mov rdx, d;
-            mov r10, e;
-            mov r8,  f;
-            mov r9,  g;
-            syscall;
-        }
-    }
+    macro syscall()                                                        { asm -> syscall;                               }
+    macro syscall(a)                & extension( syscall () )              { asm -> mov rax, a;    extended();             }
+    macro syscall(a,b)              & extension( syscall (a) )             { asm -> mov rdi, b;    extended(a);            }
+    macro syscall(a,b,c)            & extension( syscall (a,b) )           { asm -> mov rsi, b;    extended(a,b);          }
+    macro syscall(a,b,c,d)          & extension( syscall (a,b,c) )         { asm -> mov rdx, b;    extended(a,b,c);        }
+    macro syscall(a,b,c,d,e)        & extension( syscall (a,b,c,d) )       { asm -> mov r10, b;    extended(a,b,c,d);      }
+    macro syscall(a,b,c,d,e,f)      & extension( syscall (a,b,c,d,e) )     { asm -> mov r8,  b;    extended(a,b,c,d,e);    }
+    macro syscall(a,b,c,d,e,f,g)    & extension( syscall (a,b,c,d,e,f) )   { asm -> mov r9,  b;    extended(a,b,c,d,e,f);  }
 }
 
 macro exit(code) {
