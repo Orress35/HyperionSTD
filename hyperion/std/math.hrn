@@ -1,3 +1,5 @@
+package std::hyperion;
+
 macro min(a, b) a < b ? a : b
 macro max(a, b) a > b ? a : b
 

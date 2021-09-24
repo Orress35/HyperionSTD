@@ -1,3 +1,5 @@
+package std::hyperion;
+
 compiler_options(system, linux64) {
     macro syscall()                                                        { asm -> syscall;                               }
     macro syscall(a)                : extension( syscall () )              { asm -> mov rax, a;    extended();             }
