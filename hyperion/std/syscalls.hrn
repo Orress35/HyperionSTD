@@ -11,8 +11,4 @@ compiler_options(system, linux64) {
     macro syscall(a,b,c,d,e,f,g)    : extension( syscall (a,b,c,d,e,f) )   { asm -> mov r9,  b;    extended(a,b,c,d,e,f);  }
 }
 
-macro exit(code) {
-    compiler_options(system, linux64) {
-        syscall(60, 0);
-    }
-}
+macro exit(code) compiler_options(system, linux64) -> syscall(60, 0)
