@@ -1,14 +1,42 @@
 package hyperion::std;
 
-compiler_options(system, linux64) {
-    macro syscall()                                                        { asm -> syscall;                               }
-    macro syscall(a)                : extension( syscall () )              { asm -> mov rax, a;    extended();             }
-    macro syscall(a,b)              : extension( syscall (a) )             { asm -> mov rdi, b;    extended(a);            }
-    macro syscall(a,b,c)            : extension( syscall (a,b) )           { asm -> mov rsi, b;    extended(a,b);          }
-    macro syscall(a,b,c,d)          : extension( syscall (a,b,c) )         { asm -> mov rdx, b;    extended(a,b,c);        }
-    macro syscall(a,b,c,d,e)        : extension( syscall (a,b,c,d) )       { asm -> mov r10, b;    extended(a,b,c,d);      }
-    macro syscall(a,b,c,d,e,f)      : extension( syscall (a,b,c,d,e) )     { asm -> mov r8,  b;    extended(a,b,c,d,e);    }
-    macro syscall(a,b,c,d,e,f,g)    : extension( syscall (a,b,c,d,e,f) )   { asm -> mov r9,  b;    extended(a,b,c,d,e,f);  }
-}
-
-macro exit(code) compiler_options(system, linux64) -> syscall(60, 0)
+(system(linux64)) (
+    macro syscall: a (
+        mov(rax, a)
+        syscall()
+    )
+    
+    macro syscall: a, b [extension syscall(a)] (
+        mov(rdi, b)
+        extended(a)
+    )
+    
+    macro syscall: a, b, c [extension syscall(a, b)] (
+        mov(rsi, c)
+        extended(a, b)
+    )
+    
+    macro syscall: a, b, c, d [extension syscall(a, b, c)] (
+        mov(rdx, d)
+        extended(a, b, c)
+    )
+    
+    macro syscall: a, b, c, d, e [extension syscall(a, b, c, e)] (
+        mov(r10, e)
+        extended(a, b, c, d)
+    )
+    
+    macro syscall: a, b, c, d, e, f [extension syscall(a, b, c, e, f)] (
+        mov(r8, f)
+        extended(a, b, c, d, e)
+    )
+    
+    macro syscall: a, b, c, d, e, f, g [extension syscall(a, b, c, e, f)] (
+        mov(r9, g)
+        extended(a, b, c, d, e, f)
+    )
+    
+    macro exit: code (
+        syscall(60, 0)
+    )
+)
