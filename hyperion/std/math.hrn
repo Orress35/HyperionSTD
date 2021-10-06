@@ -1,27 +1,23 @@
-package hyperion::std;
+package hyperion.std
 
-macro min(a, b) a < b ? a : b
-macro max(a, b) a > b ? a : b
+macro min: a, b -> a < b ? a : b
+macro max: a, b -> a > b ? a : b
 
-macro lcm(a, b) (a / gcd(a, b)) * b
+macro lcm: a, b -> (a / gcd(a, b)) * b
 
-int<S> gcd(int<S> a, int<S> b)
-{
-    while (b) b ^= a ^= b ^= a %= b;
-    return a;
-}
+int<S> gcd: int<S> a, int<S> b (
+    while (b) b ^= a ^= b ^= a %= b
+    return a
+)
 
-macro floor(a) (int) a
-macro round(a) (int) a + 0.5
-macro ceil(a) a > (int) a ? (int) a + 1 : (int) a
+macro floor: a -> (int) a
+macro round: a -> (int) a + 0.5
+macro ceil: a -> a > (int) a ? (int) a + 1 : (int) a
 
-int<S> abs(int<S> a) : (pre_generate(S, {8, 16, 32, 64})) /* this explicitly tells the compiler to generate function variants
-                                                             for 8 to 64 bit integers just to make sure that it works 100% of the time 
-                                                             also, it makes the program compile a bit faster                           */
-{
-    a >> (S - 1);
-    a ^= a;
-    return a & 1;
-}
+int<S> abs: int<S> a [pre_generate(S, {8, 16, 32, 64})] (
+    a >> (S - 1)
+    a ^= a
+    return a & 1
+)
 
-macro sign(a) (a>>31)|(!!a)
+macro sign: a -> (a>>31)|(!!a)
