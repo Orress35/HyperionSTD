@@ -1,9 +1,8 @@
 package hyperion::bios;
 
-macro magic()
-{
-    asm {
-        times 510-($-$$) db 0;
-        dw 0xAA55;
-    }
-}
+macro magic (
+    asm (
+        times 510-($-$$) db 0
+        dw 0xAA55
+    )
+)
