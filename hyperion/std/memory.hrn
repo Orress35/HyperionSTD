@@ -1,7 +1,7 @@
-package std::hyperion;
+package hyperion.std
 
 /* TODO: implement these methods */
-void free(void* address, int size);
-void malloc(int size);
-void aligned_malloc(void* address, int size);
-void memcpy(void* address, void* address2, int size);
+void free: void* address, int size
+void malloc: int size
+void aligned_malloc: void* address, int size
+void memcpy: void* address, void* address2, int size
