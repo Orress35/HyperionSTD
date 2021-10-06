@@ -1,4 +1,4 @@
-package hyperion::std;
+package hyperion.std
 
 (system(linux64)) (
     macro syscall: a (
